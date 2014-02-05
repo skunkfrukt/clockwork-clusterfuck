@@ -3,9 +3,9 @@ import json
 MAP_SENTINEL = 100
 
 def look():
-	print '{r} at {t}:00'.format(r=current_room.upper(), t=current_time)
-	print 'Open: [{xx}]  Closed: [{cc}]'.format(xx='|'.join(get_open_exits()),
-			cc='|'.join(get_closed_exits()))
+    print '{r} at {t}:00'.format(r=current_room.upper(), t=current_time)
+    print 'Open: [{xx}]  Closed: [{cc}]'.format(xx='|'.join(get_open_exits()),
+            cc='|'.join(get_closed_exits()))
 	
 def get_open_exits():
 	all_exits = rooms[current_room]['exits']
