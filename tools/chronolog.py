@@ -3,9 +3,9 @@ import json
 MAP_SENTINEL = 100
 
 def look():
-    print '{r} at {t}:00'.format(r=current_room.upper(), t=current_time)
-    print 'Open: [{xx}]  Closed: [{cc}]'.format(xx='|'.join(get_open_exits()),
-            cc='|'.join(get_closed_exits()))
+	print '{r} at {t}:00'.format(r=current_room.upper(), t=current_time)
+	print 'Open: [{xx}]  Closed: [{cc}]'.format(xx='|'.join(get_open_exits()),
+			cc='|'.join(get_closed_exits()))
 	
 def get_open_exits():
 	all_exits = rooms[current_room]['exits']
@@ -86,5 +86,25 @@ while True:
 			time = int(split_cmd[2])
 			current_room, current_time = room, time
 			look()
+		elif cmd.startswith('save'):
+			cmds = cmd.split()
+			if len(cmds) == 1:
+				fn = 'rooms.json'
+			else:
+				fn = cmds[1]
+				if not fn.endswith('.json'):
+					fn += '.json'
+			json.dump(rooms, open(fn, 'w'))
+			print 'Saved {fn}.'.format(fn=fn)
+		elif cmd.startswith('load'):
+			cmds = cmd.split()
+			if len(cmds) == 1:
+				fn = 'rooms.json'
+			else:
+				fn = cmds[1]
+				if not fn.endswith('.json'):
+					fn += '.json'
+			rooms = json.load(open(fn))
+			print 'Loaded {fn}.'.format(fn=fn)
 		else:
 			print 'Nope.'
